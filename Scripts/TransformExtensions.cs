@@ -36,6 +36,34 @@ namespace UrFairy {
       t.localScale = rep.s;
     }
 
+    public static void LocalPosition(this Transform t, System.Func<Vector3, Vector3> f) {
+      t.localPosition = f(t.localPosition);
+    }
+
+    public static void LocalRotation(this Transform t, System.Func<Quaternion, Quaternion> f) {
+      t.localRotation = f(t.localRotation);
+    }
+
+    public static void LocalEulerAngles(this Transform t, System.Func<Vector3, Vector3> f) {
+      t.localEulerAngles = f(t.localEulerAngles);
+    }
+
+    public static void LocalScale(this Transform t, System.Func<Vector3, Vector3> f) {
+      t.localScale = f(t.localScale);
+    }
+
+    public static void Position(this Transform t, System.Func<Vector3, Vector3> f) {
+      t.position = f(t.position);
+    }
+
+    public static void Rotation(this Transform t, System.Func<Quaternion, Quaternion> f) {
+      t.rotation = f(t.rotation);
+    }
+
+    public static void EulerAngles(this Transform t, System.Func<Vector3, Vector3> f) {
+      t.eulerAngles = f(t.eulerAngles);
+    }
+
     public static Transform FindDescendant(this Transform t, string name) {
       var l = t.childCount;
       for (var i = 0; i < l; ++i) {
