@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace UrFairy {
   public static class TransformExtensions {
@@ -62,6 +63,19 @@ namespace UrFairy {
 
     public static void EulerAngles(this Transform t, System.Func<Vector3, Vector3> f) {
       t.eulerAngles = f(t.eulerAngles);
+    }
+
+    public static IEnumerable<Transform> Children(this Transform t, bool includesDescendants = false) {
+      var l = t.childCount;
+      for (var i = 0; i < l; ++i) {
+        var child = t.GetChild(i);
+        yield return child;
+        if (includesDescendants) {
+          foreach (var descendant in child.Children(true)) {
+            yield return descendant;
+          }
+        }
+      }
     }
 
     public static Transform FindDescendant(this Transform t, string name) {
