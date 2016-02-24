@@ -259,11 +259,31 @@ foreach (var l in g1.GetComponents<Light>().AddLast(g2.GetComponent<Light>())) {
 }
 ```
 
+### Each
+
+Same as `each()` in Ruby.
+
+```C#
+list.Each((e) => {
+  Debug.Log(e);
+});
+```
+
+### EachWithIndex
+
+Same as `each_with_index()` in Ruby.
+
+```C#
+list.EachWithIndex((e, i) => {
+  Debug.Log(i + " -> " + e);
+});
+```
+
 ## Object Extensions
 
 ### Tap
 
-It is `tap()` in Ruby.
+Same as `tap()` in Ruby.
 
 ```C#
 g.GetComponents<Light>().Where((l) => l.intensity > 1f).Tap((o) => Debug.Log(o.ToList().Count)).Select((l) => l.gameObject);
