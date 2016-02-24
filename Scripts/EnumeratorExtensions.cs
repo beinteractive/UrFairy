@@ -22,5 +22,23 @@ namespace UrFairy {
       }
       yield return element;
     }
+
+    public static void Each<T>(this IEnumerable<T> enumerable, System.Action<T> f) {
+      foreach (var e in enumerable) {
+        f(e);
+      }
+    }
+
+    public static void EachWithIndex<T>(this IEnumerable<T> enumerable, System.Action<T, int> f) {
+      EachWithIndex(enumerable, 0, f);
+    }
+
+    public static void EachWithIndex<T>(this IEnumerable<T> enumerable, int start, System.Action<T, int> f) {
+      var list = new List<T>(enumerable);
+      var l = list.Count;
+      for (var i = 0; i < l; ++i) {
+        f(list[i], start + i);
+      }
+    }
   }
 }
