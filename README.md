@@ -80,6 +80,26 @@ g.transform.localScale = ls;
 g.transform.localRotation = lr;
 ```
 
+### Auto Restore
+
+```C#
+g.transform.AutoRestore(() => {
+  g.transform.parent = transform;
+});
+```
+
+Same as:
+
+```C#
+var lp = g.transform.localPosition;
+var ls = g.transform.localScale;
+var lr = g.transform.localRotation;
+g.transform.parent = transform;
+g.transform.localPosition = lp;
+g.transform.localScale = ls;
+g.transform.localRotation = lr;
+```
+
 ### One Liner Modification
 
 ```C#
