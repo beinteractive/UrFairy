@@ -288,3 +288,9 @@ Same as `tap()` in Ruby.
 ```C#
 g.GetComponents<Light>().Where((l) => l.intensity > 1f).Tap((o) => Debug.Log(o.ToList().Count)).Select((l) => l.gameObject);
 ```
+
+## License
+
+Copyright 2016 Oink Games, Inc. and other contributors.
+
+Code licensed under the MIT License: http://opensource.org/licenses/MIT
