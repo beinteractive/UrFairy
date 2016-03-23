@@ -92,5 +92,10 @@ namespace UrFairy {
 			}
 			return null;
 		}
+
+		public static void BackwardLookAt(this Transform t, Transform target)
+		{
+			t.LookAt(target.position + target.forward * 1000f);
+		}
 	}
 }
