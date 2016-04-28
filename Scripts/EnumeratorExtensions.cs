@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UrFairy {
 	public static class EnumeratorExtensions {
@@ -40,5 +41,23 @@ namespace UrFairy {
 				f(list[i], start + i);
 			}
 		}
+
+		public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> self)
+		{
+			return self.OrderBy(e => e, new RandomComparer<T>());
+		}
+
+		class RandomComparer<T> : IComparer<T>
+		{
+			public int Compare(T a, T b)
+			{
+				return 1 - 2 * Random.Range(0, 1);
+			}
+		}
+
+        public static T Sample<T>(this IEnumerable<T> self)
+        {
+            return self.ElementAt(Random.Range(0, self.Count()));
+        }
 	}
 }
