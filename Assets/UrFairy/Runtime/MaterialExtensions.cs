@@ -65,31 +65,32 @@ namespace UrFairy
             return m;
         }
 
-		public static Material Keyword(this Material m, string name, bool val)
-		{
-			if (val)
-			{
-				m.EnableKeyword(name);
-			}
-			else
-			{
-				m.DisableKeyword(name);
-			}
-			return m;
-		}
+        public static Material Keyword(this Material m, string name, bool val)
+        {
+            if (val)
+            {
+                m.EnableKeyword(name);
+            }
+            else
+            {
+                m.DisableKeyword(name);
+            }
 
-		public static Material Keyword(this Material m, string name, Func<bool, bool> f)
-		{
-			if (f(m.IsKeywordEnabled(name)))
-			{
-				m.EnableKeyword(name);
-			}
-			else
-			{
-				m.DisableKeyword(name);
-			}
-			return m;
-		}
+            return m;
+        }
+
+        public static Material Keyword(this Material m, string name, Func<bool, bool> f)
+        {
+            if (f(m.IsKeywordEnabled(name)))
+            {
+                m.EnableKeyword(name);
+            }
+            else
+            {
+                m.DisableKeyword(name);
+            }
+
+            return m;
+        }
     }
 }
-

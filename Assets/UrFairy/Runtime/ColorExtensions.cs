@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
+using UnityEngine;
 
 namespace UrFairy
 {
@@ -8,12 +7,12 @@ namespace UrFairy
     {
         public static Color Color(this int n)
         {
-            return (Color)n.Color32();
+            return n.Color32();
         }
 
         public static Color32 Color32(this int n)
         {
-            return new Color32((byte)((n >> 16) & 0xff), (byte)((n >> 8) & 0xff), (byte)((n >> 0) & 0xff), (byte)0xff);
+            return new Color32((byte) ((n >> 16) & 0xff), (byte) ((n >> 8) & 0xff), (byte) ((n >> 0) & 0xff), 0xff);
         }
 
         public static Color R(this Color c, float r)
@@ -66,82 +65,82 @@ namespace UrFairy
 
         public static HSV HSV(this Color c)
         {
-            return (HSV)c;
+            return (HSV) c;
         }
 
         public static Color Color(this HSV hsv)
         {
-            return (Color)hsv;
+            return (Color) hsv;
         }
 
         public static HSV H(this HSV hsv, float h)
         {
-            hsv.h = h;
+            hsv.H = h;
             return hsv;
         }
 
         public static HSV S(this HSV hsv, float s)
         {
-            hsv.s = s;
+            hsv.S = s;
             return hsv;
         }
 
         public static HSV V(this HSV hsv, float v)
         {
-            hsv.v = v;
+            hsv.V = v;
             return hsv;
         }
 
         public static HSV A(this HSV hsv, float a)
         {
-            hsv.a = a;
+            hsv.A = a;
             return hsv;
         }
 
         public static HSV H(this HSV hsv, Func<float, float> f)
         {
-            hsv.h = f(hsv.h);
+            hsv.H = f(hsv.H);
             return hsv;
         }
 
         public static HSV S(this HSV hsv, Func<float, float> f)
         {
-            hsv.s = f(hsv.s);
+            hsv.S = f(hsv.S);
             return hsv;
         }
 
         public static HSV V(this HSV hsv, Func<float, float> f)
         {
-            hsv.v = f(hsv.v);
+            hsv.V = f(hsv.V);
             return hsv;
         }
 
         public static HSV A(this HSV hsv, Func<float, float> f)
         {
-            hsv.a = f(hsv.a);
+            hsv.A = f(hsv.A);
             return hsv;
         }
     }
 
     public struct HSV
     {
-        public float h;
-        public float s;
-        public float v;
-        public float a;
+        public float H;
+        public float S;
+        public float V;
+        public float A;
 
         public static explicit operator HSV(Color c)
         {
             var hsv = new HSV();
-            Color.RGBToHSV(c, out hsv.h, out hsv.s, out hsv.v);
-            hsv.a = c.a;
+            Color.RGBToHSV(c, out hsv.H, out hsv.S, out hsv.V);
+            hsv.A = c.a;
             return hsv;
         }
 
         public static explicit operator Color(HSV hsv)
         {
-            var c = Color.HSVToRGB(hsv.h, hsv.s, hsv.v);
-            c.a = hsv.a;
+            var c = Color.HSVToRGB(hsv.H, hsv.S, hsv.V);
+            c.a = hsv.A;
             return c;
         }
     }

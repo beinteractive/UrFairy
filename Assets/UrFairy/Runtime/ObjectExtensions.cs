@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 
 namespace UrFairy
 {
@@ -12,6 +10,7 @@ namespace UrFairy
             {
                 f(o);
             }
+
             return o;
         }
 
@@ -21,6 +20,7 @@ namespace UrFairy
             {
                 f();
             }
+
             return o;
         }
 

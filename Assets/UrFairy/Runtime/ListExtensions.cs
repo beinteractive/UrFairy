@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace UrFairy
 {
@@ -8,10 +7,7 @@ namespace UrFairy
     {
         public static void Shuffle<T>(this List<T> list)
         {
-            list.Sort((a, b) =>
-            {
-                return 1 - 2 * Random.Range(0, 1);
-            });
+            list.Sort((a, b) => 1 - 2 * Random.Range(0, 1));
         }
     }
 }
