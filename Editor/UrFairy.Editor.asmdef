@@ -1,0 +1,8 @@
+{
+    "name": "UrFairy.Editor",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
