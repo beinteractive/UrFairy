@@ -22,14 +22,14 @@ namespace UrFairy {
 		private static Tool saved;
 
 		public static void OnGlobalEventHandler(Event e) {
-			if (!pressed && e.type == EventType.keyDown) {
+			if (!pressed && e.type == EventType.KeyDown) {
 				if (e.keyCode == KeyCode.Space) {
 					pressed = true;
 					saved = Tools.current;
 					Tools.current = Tool.View;
 				}
 			}
-			if (pressed && e.type == EventType.keyUp) {
+			if (pressed && e.type == EventType.KeyUp) {
 				if (e.keyCode == KeyCode.Space) {
 					pressed = false;
 					Tools.current = saved;
