@@ -70,5 +70,10 @@ namespace UrFairy
         {
             return self.ElementAt(Random.Range(0, self.Count()));
         }
+
+        public static bool IsEmpty<T>(this IEnumerable<T> self)
+        {
+            return !self.Any();
+        }
     }
 }
