@@ -27,6 +27,7 @@ namespace UrFairy
             {
                 yield return null;
             }
+
             f();
         }
 
@@ -35,6 +36,5 @@ namespace UrFairy
             yield return new WaitForSeconds(seconds);
             f();
         }
-
     }
 }

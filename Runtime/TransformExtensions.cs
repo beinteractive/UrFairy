@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace UrFairy
 {
@@ -9,9 +8,9 @@ namespace UrFairy
     {
         public class Transformation
         {
-            public Vector3 p;
-            public Quaternion r;
-            public Vector3 s;
+            public Vector3 P;
+            public Quaternion R;
+            public Vector3 S;
         }
 
         public static void Identity(this Transform t)
@@ -30,18 +29,20 @@ namespace UrFairy
 
         public static Transformation Replicate(this Transform t)
         {
-            var rep = new Transformation();
-            rep.p = t.localPosition;
-            rep.r = t.localRotation;
-            rep.s = t.localScale;
+            var rep = new Transformation
+            {
+                P = t.localPosition,
+                R = t.localRotation,
+                S = t.localScale
+            };
             return rep;
         }
 
         public static void Restore(this Transform t, Transformation rep)
         {
-            t.localPosition = rep.p;
-            t.localRotation = rep.r;
-            t.localScale = rep.s;
+            t.localPosition = rep.P;
+            t.localRotation = rep.R;
+            t.localScale = rep.S;
         }
 
         public static void LocalPosition(this Transform t, Func<Vector3, Vector3> f)
@@ -106,12 +107,14 @@ namespace UrFairy
                 {
                     return child;
                 }
+
                 var found = child.FindDescendant(name);
                 if (found != null)
                 {
                     return found;
                 }
             }
+
             return null;
         }
 

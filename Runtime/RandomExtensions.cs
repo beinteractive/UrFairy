@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace UrFairy
 {
@@ -20,34 +19,34 @@ namespace UrFairy
 
     public class Rnd
     {
-        public Rnd() : this((ulong)(Random.value * ulong.MaxValue), (ulong)(Random.value * ulong.MaxValue))
+        public Rnd() : this((ulong) (Random.value * ulong.MaxValue), (ulong) (Random.value * ulong.MaxValue))
         {
         }
 
         public Rnd(ulong iState, ulong iSeq)
         {
-            state = 0U;
-            inc = (iSeq << 1) | 1u;
+            State = 0U;
+            Inc = (iSeq << 1) | 1u;
             Next();
-            state += iState;
+            State += iState;
             Next();
         }
 
-        ulong state;
-        ulong inc;
+        private ulong State;
+        private readonly ulong Inc;
 
         uint Next()
         {
-            ulong oldState = state;
-            state = oldState * 6364136223846793005UL + inc;
-            uint xorshifted = (uint)(((oldState >> 18) ^ oldState) >> 27);
-            int rot = (int)(oldState >> 59);
+            ulong oldState = State;
+            State = oldState * 6364136223846793005UL + Inc;
+            uint xorshifted = (uint) (((oldState >> 18) ^ oldState) >> 27);
+            int rot = (int) (oldState >> 59);
             return (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
         }
 
         uint Bounded(uint bound)
         {
-            uint threshold = (uint)((0x100000000UL - bound) % bound);
+            uint threshold = (uint) ((0x100000000UL - bound) % bound);
             for (;;)
             {
                 uint r = Next();
@@ -58,8 +57,15 @@ namespace UrFairy
             }
         }
 
-        public float Value { get { return Next() / (float)uint.MaxValue; } }
-        public uint Value32 { get { return Next(); } }
+        public float Value
+        {
+            get { return Next() / (float) uint.MaxValue; }
+        }
+
+        public uint Value32
+        {
+            get { return Next(); }
+        }
 
         public float Range(float min, float max)
         {
@@ -68,7 +74,7 @@ namespace UrFairy
 
         public int Range(int min, int max)
         {
-            return min + (int)Bounded((uint)(max - min));
+            return min + (int) Bounded((uint) (max - min));
         }
     }
 }

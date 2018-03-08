@@ -18,9 +18,9 @@ namespace UrFairy
             {
                 materials[i] = f(materials[i]);
             }
+
             r.materials = materials;
             return r;
         }
     }
 }
-

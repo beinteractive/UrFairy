@@ -24,10 +24,10 @@ namespace UrFairy
             return Vector4.Lerp(to, current, Mathf.Exp(-speed * dt));
         }
 
-		public static Quaternion Expo(Quaternion to, Quaternion current, float speed, float dt)
-		{
-			return Quaternion.Slerp(to, current, Mathf.Exp(-speed * dt));
-		}
+        public static Quaternion Expo(Quaternion to, Quaternion current, float speed, float dt)
+        {
+            return Quaternion.Slerp(to, current, Mathf.Exp(-speed * dt));
+        }
 
         public static float CriticallyDamped(float to, float current, ref float velocity, float speed, float dt)
         {
@@ -61,19 +61,20 @@ namespace UrFairy
             return current + velocity * dt;
         }
 
-		public static Quaternion CriticallyDamped(Quaternion to, Quaternion current, ref Vector4 velocity, float speed, float dt)
-		{
-			var vTo = new Vector4(to.x, to.y, to.z, to.w);
-			var vCurrent = new Vector4(current.x, current.y, current.z, current.w);
-			if (Vector4.Dot(vCurrent, vTo) < 0)
-			{
-				vTo = -vTo;
-			}
-			var n1 = velocity - (vCurrent - vTo) * (speed * speed * dt);
-			var n2 = 1 + speed * dt;
-			velocity = n1 / (n2 * n2);
-			var r = Vector4.Normalize(vCurrent + velocity * dt);
-			return new Quaternion(r.x, r.y, r.z, r.w);
-		}
+        public static Quaternion CriticallyDamped(Quaternion to, Quaternion current, ref Vector4 velocity, float speed, float dt)
+        {
+            var vTo = new Vector4(to.x, to.y, to.z, to.w);
+            var vCurrent = new Vector4(current.x, current.y, current.z, current.w);
+            if (Vector4.Dot(vCurrent, vTo) < 0)
+            {
+                vTo = -vTo;
+            }
+
+            var n1 = velocity - (vCurrent - vTo) * (speed * speed * dt);
+            var n2 = 1 + speed * dt;
+            velocity = n1 / (n2 * n2);
+            var r = Vector4.Normalize(vCurrent + velocity * dt);
+            return new Quaternion(r.x, r.y, r.z, r.w);
+        }
     }
 }

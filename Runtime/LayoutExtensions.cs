@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace UrFairy
+﻿namespace UrFairy
 {
     public class LinearLayout
     {

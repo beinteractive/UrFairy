@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 namespace UrFairy
 {
@@ -27,10 +27,11 @@ namespace UrFairy
             {
                 yield return e;
             }
+
             yield return element;
         }
 
-        public static void Each<T>(this IEnumerable<T> enumerable, System.Action<T> f)
+        public static void Each<T>(this IEnumerable<T> enumerable, Action<T> f)
         {
             foreach (var e in enumerable)
             {
@@ -38,12 +39,12 @@ namespace UrFairy
             }
         }
 
-        public static void EachWithIndex<T>(this IEnumerable<T> enumerable, System.Action<T, int> f)
+        public static void EachWithIndex<T>(this IEnumerable<T> enumerable, Action<T, int> f)
         {
             EachWithIndex(enumerable, 0, f);
         }
 
-        public static void EachWithIndex<T>(this IEnumerable<T> enumerable, int start, System.Action<T, int> f)
+        public static void EachWithIndex<T>(this IEnumerable<T> enumerable, int start, Action<T, int> f)
         {
             var list = new List<T>(enumerable);
             var l = list.Count;
