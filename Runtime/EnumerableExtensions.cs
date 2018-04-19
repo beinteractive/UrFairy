@@ -76,5 +76,15 @@ namespace UrFairy
         {
             return !self.Any();
         }
+        
+        public static IEnumerable<T> ActiveObjects<T>(this IEnumerable<T> self) where T : UnityEngine.Object
+        {
+            return self.Where(e => (UnityEngine.Object) e != (UnityEngine.Object) null);
+        }
+        
+        public static IEnumerable<T> Actives<T>(this IEnumerable<T> self) where T : UnityEngine.Component
+        {
+            return self.Where(e => (UnityEngine.Object) e != (UnityEngine.Object) null && e.gameObject != null);
+        }
     }
 }
