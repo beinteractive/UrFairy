@@ -5,14 +5,14 @@ using Random = UnityEngine.Random;
 
 namespace UrFairy
 {
-    public static class EnumeratorExtensions
+    public static class EnumerableExtensions
     {
-        public static IEnumerable<T> Enumerable<T>(this T o)
+        public static IEnumerable<T> AsEnumerable<T>(this T o)
         {
             yield return o;
         }
 
-        public static IEnumerable<T> AddFirst<T>(this IEnumerable<T> enumerable, T element)
+        public static IEnumerable<T> CombineFirst<T>(this IEnumerable<T> enumerable, T element)
         {
             yield return element;
             foreach (var e in enumerable)
@@ -21,7 +21,7 @@ namespace UrFairy
             }
         }
 
-        public static IEnumerable<T> AddLast<T>(this IEnumerable<T> enumerable, T element)
+        public static IEnumerable<T> CombineLast<T>(this IEnumerable<T> enumerable, T element)
         {
             foreach (var e in enumerable)
             {
@@ -75,6 +75,16 @@ namespace UrFairy
         public static bool IsEmpty<T>(this IEnumerable<T> self)
         {
             return !self.Any();
+        }
+        
+        public static IEnumerable<T> ActiveObjects<T>(this IEnumerable<T> self) where T : UnityEngine.Object
+        {
+            return self.Where(e => (UnityEngine.Object) e != (UnityEngine.Object) null);
+        }
+        
+        public static IEnumerable<T> Actives<T>(this IEnumerable<T> self) where T : UnityEngine.Component
+        {
+            return self.Where(e => (UnityEngine.Object) e != (UnityEngine.Object) null && e.gameObject != null);
         }
     }
 }
