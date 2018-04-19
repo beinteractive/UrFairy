@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 namespace UrFairy
 {
-    public static class EnumeratorExtensions
+    public static class EnumerableExtensions
     {
         public static IEnumerable<T> Enumerable<T>(this T o)
         {
