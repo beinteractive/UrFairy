@@ -2,12 +2,20 @@
 
 UrFairy (Your fairy) is a set of useful extensions for development in Unity.
 
-To start using UrFairy, copy `Assets/UrFairy` directoy to your project and write `using UrFairy;` in your code.
+## Installation
 
-```C#
-using UnityEngine;
-using System.Collections;
-using UrFairy;
+### <= 2017.x
+
+Copy `Assets/UrFairy` directoy to your `Assets` directory.
+
+### >= 2018.x
+
+Clone this repository into your project's `Packages` directory and checkout `upm` branch.
+
+```
+$ git submodule add git@github.com:beinteractive/UrFairy.git Packages/UrFairy
+$ cd Packages/UrFairy
+$ git checkout upm
 ```
 
 ## Vector Extensions
@@ -16,48 +24,58 @@ using UrFairy;
 
 ```C#
 transform.localPosition = transform.localPosition.X(10f).Y(20f);
-```
 
-Same as:
-
-```C#
+// Same as:
+/*
 var lp = transform.localPosition;
 lp.x = 10f;
 lp.y = 20f;
 transform.localPosition = lp;
+*/
 ```
 
 ### One Liner Modification (Relative Value)
 
 ```C#
 transform.localPosition = transform.localPosition.X((x) => x + 10f).Y((y) => y - 20f);
-```
 
-Same as:
-
-```C#
+// Same as:
+/*
 var lp = transform.localPosition;
 lp.x += 10f;
 lp.y -= 20f;
 transform.localPosition = lp;
+*/
 ```
 
 ## Transform Extensions
+
+### One Liner Modification
+
+```C#
+g.transform.LocalPosition((p) => p.X(10f));
+
+// Same as:
+/*
+var lp = g.transform.localPosition;
+lp.x = 10f;
+g.transform.localPosition = lp;
+*/
+```
 
 ### Reset Transform
 
 ```C#
 g.transform.parent = transform;
 g.transform.Identity();
-```
 
-Same as:
-
-```C#
+// Same as:
+/*
 g.transform.parent = transform;
 g.transform.localPosition = Vector3.zero;
 g.transform.localRotation = Quaternion.identity;
 g.transform.localScale = Vector3.one;
+*/
 ```
 
 ### Replicate & Restore
@@ -66,11 +84,9 @@ g.transform.localScale = Vector3.one;
 var rep = g.transform.Replicate();
 g.transform.parent = transform;
 g.transform.Restore(rep);
-```
 
-Same as:
-
-```C#
+// Same as:
+/*
 var lp = g.transform.localPosition;
 var ls = g.transform.localScale;
 var lr = g.transform.localRotation;
@@ -78,6 +94,7 @@ g.transform.parent = transform;
 g.transform.localPosition = lp;
 g.transform.localScale = ls;
 g.transform.localRotation = lr;
+*/
 ```
 
 ### Auto Restore
@@ -86,11 +103,9 @@ g.transform.localRotation = lr;
 g.transform.AutoRestore(() => {
   g.transform.parent = transform;
 });
-```
 
-Same as:
-
-```C#
+// Same as:
+/*
 var lp = g.transform.localPosition;
 var ls = g.transform.localScale;
 var lr = g.transform.localRotation;
@@ -98,20 +113,7 @@ g.transform.parent = transform;
 g.transform.localPosition = lp;
 g.transform.localScale = ls;
 g.transform.localRotation = lr;
-```
-
-### One Liner Modification
-
-```C#
-g.transform.LocalPosition((p) => p.X(10f));
-```
-
-Same as:
-
-```C#
-var lp = g.transform.localPosition;
-lp.x = 10f;
-g.transform.localPosition = lp;
+*/
 ```
 
 ### Enumerate Children
@@ -150,14 +152,13 @@ var c = 0x112233.Color();
 
 ```C#
 graphics.color = graphics.color.A(0.5f);
-```
 
-Same as:
-
-```C#
+// Same as:
+/*
 var col = graphics.color;
 col.a = 0.5f;
 graphics.color = col;
+*/
 ```
 
 ### HSV
@@ -219,44 +220,57 @@ this.Delay(3.0f, () => {
 var n = Random.Range(2f, 3f).RandomSign();
 ```
 
-## List Extensions
-
-### Shuffle
-
-```C#
-// Make order randomly.
-list.Shuffle();
-```
-
 ## Enumerator Extensions
 
 ### Object to Enumerable
 
 ```C#
-var e = default(IEnumerable<string>);
-if (list.Count > 0) {
-  e = list;
-} else {
-  e = "It's empty".Enumerable(); // Convert an object to enumerable
+// e is IEnumerable<string>
+var e = "It's empty".AsEnumerable(); // Convert an object to enumerable
 }
 ```
 
-### Add First
+### Combine First
 
 ```C#
 // Insert specified element to first
-foreach (var l in g1.GetComponents<Light>().AddFirst(g2.GetComponent<Light>())) {
+foreach (var l in g1.GetComponents<Light>().CombineFirst(g2.GetComponent<Light>())) {
   l.enabled = false;
 }
 ```
 
-### Add Last
+### Combine Last
 
 ```C#
 // Insert specified element to last
-foreach (var l in g1.GetComponents<Light>().AddLast(g2.GetComponent<Light>())) {
+foreach (var l in g1.GetComponents<Light>().CombineLast(g2.GetComponent<Light>())) {
   l.enabled = false;
 }
+```
+
+### Sample
+
+```C#
+// Pick a random element
+var e = list.Sample();
+```
+
+### Is Empty
+
+```C#
+// Whether enumerable has any element
+var b = list.IsEmpty();
+```
+
+### Actives / ActiveObjects
+
+Choose objects that is not null (means not destroyed yet)
+
+```C#
+// for UnityEngine.Component
+var actives = components.Actives();
+// for UnityEngine.Object
+var activeObjects = objects.ActiveObjects();
 ```
 
 ### Each
@@ -277,6 +291,28 @@ Same as `each_with_index()` in Ruby.
 list.EachWithIndex((e, i) => {
   Debug.Log(i + " -> " + e);
 });
+```
+
+## List Extensions
+
+### Shuffle
+
+```C#
+// Make order randomly.
+list.Shuffle();
+```
+
+## Dictionary Extensions
+
+### Query / QueryObject
+
+Calls a closure with a object that has been stored to dictionary as key if exists and is not null.
+
+```C#
+// for UnityEngine.Object
+gameObjects.Query("Foo", g => g.SetActive(true));
+// for other objects / values
+values.QueryObject("Foo", o => Debug.Log(o));
 ```
 
 ## Object Extensions
