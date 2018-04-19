@@ -7,12 +7,12 @@ namespace UrFairy
 {
     public static class EnumerableExtensions
     {
-        public static IEnumerable<T> Enumerable<T>(this T o)
+        public static IEnumerable<T> AsEnumerable<T>(this T o)
         {
             yield return o;
         }
 
-        public static IEnumerable<T> AddFirst<T>(this IEnumerable<T> enumerable, T element)
+        public static IEnumerable<T> CombineFirst<T>(this IEnumerable<T> enumerable, T element)
         {
             yield return element;
             foreach (var e in enumerable)
@@ -21,7 +21,7 @@ namespace UrFairy
             }
         }
 
-        public static IEnumerable<T> AddLast<T>(this IEnumerable<T> enumerable, T element)
+        public static IEnumerable<T> CombineLast<T>(this IEnumerable<T> enumerable, T element)
         {
             foreach (var e in enumerable)
             {
