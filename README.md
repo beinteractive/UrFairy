@@ -12,156 +12,234 @@ Copy `Assets/UrFairy` directoy to your `Assets` directory.
 
 Clone this repository into your project's `Packages` directory and checkout `upm` branch.
 
-```
+```bash
 $ git submodule add git@github.com:beinteractive/UrFairy.git Packages/UrFairy
 $ cd Packages/UrFairy
 $ git checkout upm
 ```
 
-## Vector Extensions
+## List of extensions
 
-### One Liner Modification (Absolute Value)
+Extensions for `Vector3`
+
+  - [`.X()` / `.Y()` / `.Z()`](#vector3-xyz) - One Liner Modification
+
+Extensions for `Transform`
+
+  - [`.LocalPosition()`](#transform-localposition) - One Liner Modification
+  - [`.LocalRotation()`](#transform-localrotation) - One Liner Modification
+  - [`.LocalEulerAngles()`](#transform-localeulerangles) - One Liner Modification
+  - [`.LocalScale()`](#transform-localscale) - One Liner Modification
+  - [`.Position()`](#transform-position) - One Liner Modification
+  - [`.Rotation()`](#transform-rotation) - One Liner Modification
+  - [`.EulerAngles()`](#transform-eulerangles) - One Liner Modification
+  - [`.Identity()`](#transform-identity) - Reset Transform
+  - [`.Children()`](#transform-children) - Traversing Hierarchy
+  - [`.FindDesendant`](#transform-finddesendant) - Finding Desendant
+
+Extensions for `Color`
+
+  - [`.R()` / `.G()` / `.B()` / `.A()`](#color-rgba) - One Liner Modification
+  - [`.HSV()`](#color-hsv) - Manipulating HSV
+
+Extensions for `int`
+
+  - [`.Color()`](#int-color) - Hex to Color
+  - [`.RandomSign()`](#int-randomsign) - Random Sign
+
+Extensions for `float`
+
+  - [`.RandomSign()`](#float-randomsign) - Random Sign
+
+Extensions for `MonoBehaviour`
+
+  - [`.Delay()`](#monobehaviour-delay-frames) - Delay Frames
+  - [`.Delay()`](#monobehaviour-delay-seconds) - Delay Seconds
+
+Extensions for `IEnumerable<T>`
+
+  - [`.AsEnumerable()`](#ienumerable-asenumerable) - Object to Enumerable
+  - [`.CombineFirst()`](#ienumerable-combinefirst) - Appending Object to First
+  - [`.CombineLast()`](#ienumerable-combinelast) - Appending Object to Last
+  - [`.Sample()`](#ienumerable-sample) - Picking Random Object
+  - [`.Shuffle()`](#ienumerable-shuffle) - Enumerating in Random Order
+  - [`.IsEmpty()`](#ienumerable-isempty) - Is Collection Empty
+  - [`.Each()`](#ienumerable-each) - Enumerating Elements
+  - [`.EachWithIndex()`](#ienumerable-eachwithindex) - Enumerating Elements with Indicies
+
+Extensions for `IEnumerable<T> where T : UnityEngine.Object`
+
+  - [`.ActiveObjects()`](#ienumerable-activeobjects) - Enumerating Not Destroyed Elements
+
+Extensions for `IEnumerable<T> where T : UnityEngine.Component`
+
+  - [`.Actives()`](#ienumerable-actives) - Enumerating Not Destroyed Elements
+
+Extensions for `List<T>`
+
+  - [`.Shuffle()`](#list-shuffle) - Shuffling
+
+Extensions for `Dictionary<K, V>`
+
+  - [`.QueryObject()`](#dictionary-queryobject) - Nullsafe Querying
+
+Extensions for `Dictionary<K, V> where V : UnityEngine.Object`
+
+  - [`.Query()`](#dictionary-query) - Nullsafe Querying
+
+Extensions for `<T>`
+
+  - [`.Tap()`](#t-tap)
+
+Other
+
+ - [`Rnd`](#rnd) - PCG Random Number Generator
+ - [`Interpolations`](#interpolations) - Time Based Interpolation Alghorithms
+
+## Extensions for `Vector3`
+
+### <a name="vector3-xyz"> `.X()` / `.Y()` / `.Z()` - One Liner Modification
+
+Returns a new value with modifying a specified component value:
 
 ```C#
-transform.localPosition = transform.localPosition.X(10f).Y(20f);
+var v = new Vector3(1f, 2f, 3f);
+var p = v.X(10f).Y(20f);
 
-// Same as:
-/*
-var lp = transform.localPosition;
-lp.x = 10f;
-lp.y = 20f;
-transform.localPosition = lp;
-*/
+// p = Vector3(10f, 20f, 3f)
 ```
 
-### One Liner Modification (Relative Value)
+Relative value version:
 
 ```C#
-transform.localPosition = transform.localPosition.X((x) => x + 10f).Y((y) => y - 20f);
+var v = new Vector3(1f, 2f, 3f);
+var p = v.X(x => x + 10f).Y(y => y + 20f);
 
-// Same as:
-/*
-var lp = transform.localPosition;
-lp.x += 10f;
-lp.y -= 20f;
-transform.localPosition = lp;
-*/
+// p = Vector3(11f, 22f, 3f)
 ```
 
-## Transform Extensions
+## Extensions for `Transform`
 
-### One Liner Modification
+### <a name="transform-localposition"> `.LocalPosition()` - One Liner Modification
+
+Set a new value with modifying a current value:
 
 ```C#
-g.transform.LocalPosition((p) => p.X(10f));
-
-// Same as:
-/*
-var lp = g.transform.localPosition;
-lp.x = 10f;
-g.transform.localPosition = lp;
-*/
+// Set localPosition.x to 10f
+g.transform.LocalPosition(p => p.X(10f));
 ```
 
-### Reset Transform
+### <a name="transform-localrotation"> `.LocalRotation()` - One Liner Modification
+
+Set a new value with modifying a current value:
 
 ```C#
-g.transform.parent = transform;
+// Multiply localRotation and quaternion
+g.transform.LocalRotation(r => r * quaternion);
+```
+
+### <a name="transform-localeulerangles"> `.LocalEulerAngles()` - One Liner Modification
+
+Set a new value with modifying a current value:
+
+```C#
+// Set localEulerAngles.z to 180f
+g.transform.LocalEulerAngles(r => r.Z(180f));
+```
+
+### <a name="transform-localscale"> `.LocalScale()` - One Liner Modification
+
+Set a new value with modifying a current value:
+
+```C#
+// Set localScale.y to 2f
+g.transform.LocalScale(s => s.Y(2f));
+```
+
+### <a name="transform-position"> `.Position()` - One Liner Modification
+
+Set a new value with modifying a current value:
+
+```C#
+// Set position.x to 10f
+g.transform.Position(p => p.X(10f));
+```
+
+### <a name="transform-rotation"> `.Rotation()` - One Liner Modification
+
+Set a new value with modifying a current value:
+
+```C#
+// Multiply rotation and quaternion
+g.transform.Rotation(r => r * quaternion);
+```
+
+### <a name="transform-eulerangles"> `.EulerAngles()` - One Liner Modification
+
+Set a new value with modifying a current value:
+
+```C#
+// Set eulerAngles.z to 180f
+g.transform.EulerAngles(r => r.Z(180f));
+```
+
+### <a name="transform-identity"> `.Identity()` - Reset Transform
+
+Set initial values to position, rotation and scale.
+
+```C#
 g.transform.Identity();
 
 // Same as:
 /*
-g.transform.parent = transform;
 g.transform.localPosition = Vector3.zero;
 g.transform.localRotation = Quaternion.identity;
 g.transform.localScale = Vector3.one;
 */
 ```
 
-### Replicate & Restore
+### <a name="transform-children"> `.Children()` - Traversing Hierarchy
+
+Enumerates children (not includes desendants):
 
 ```C#
-var rep = g.transform.Replicate();
-g.transform.parent = transform;
-g.transform.Restore(rep);
-
-// Same as:
-/*
-var lp = g.transform.localPosition;
-var ls = g.transform.localScale;
-var lr = g.transform.localRotation;
-g.transform.parent = transform;
-g.transform.localPosition = lp;
-g.transform.localScale = ls;
-g.transform.localRotation = lr;
-*/
-```
-
-### Auto Restore
-
-```C#
-g.transform.AutoRestore(() => {
-  g.transform.parent = transform;
-});
-
-// Same as:
-/*
-var lp = g.transform.localPosition;
-var ls = g.transform.localScale;
-var lr = g.transform.localRotation;
-g.transform.parent = transform;
-g.transform.localPosition = lp;
-g.transform.localScale = ls;
-g.transform.localRotation = lr;
-*/
-```
-
-### Enumerate Children
-
-Children (not includes desendants):
-
-```C#
-foreach (var child in transform.Children()) {
+foreach (var child in transform.Children())
+{
   Debug.Log(child.gameObject.name);
 }
 ```
 
-Children (includes desendants):
+Enumerates children (includes desendants):
 
 ```C#
-foreach (var child in transform.Children(true)) {
+foreach (var child in transform.Children(true))
+{
   Debug.Log(child.gameObject.name);
 }
 ```
 
-### Find Desendant
+### <a name="transform-finddesendant"> `.FindDesendant()` - Finding Desendant
+
+Returns a transform that has a specified name by searching transform hierarchy recursive.
 
 ```C#
 var d = transform.FindDesendant("DesendantName");
 ```
 
-## Color Extensions
+## Extensions for `Color`
 
-### Hex to Color
+### <a name="color-rgba"> `.R()` / `.G()` / `.B()` / `.A()` - One Liner Modification
 
-```C#
-var c = 0x112233.Color();
-```
-
-### One Liner Modification
+Returns a new value with modifying a specified component value:
 
 ```C#
-graphics.color = graphics.color.A(0.5f);
+var c = Color.white;
+var v = c.A(0.5f);
 
-// Same as:
-/*
-var col = graphics.color;
-col.a = 0.5f;
-graphics.color = col;
-*/
+// v = Color(1f, 1f, 1f, 0.5f)
 ```
 
-### HSV
+### <a name="color-hsv"> `.HSV()` - Manipulating HSV
 
 Color to HSV:
 
@@ -181,15 +259,42 @@ HSV to Color:
 var col = hsv.Color();
 ```
 
-## Mono Behaviour Extensions
+## Extensions for `int`
 
-### Delay Frame
+### <a name="int-color"> `.Color()` - Hex to Color
+
+Hex value to Color:
+
+```C#
+var c = 0x112233.Color();
+```
+
+### <a name="int-randomsign"> `.RandomSign()` - Random Sign
+
+Returns positive or negative value randomly
+
+```C#
+var v = 100.RandomSign(); // 100 or -100
+```
+
+## Extensions for `float`
+
+### <a name="float-randomsign"> `.RandomSign()` - Random Sign
+
+```C#
+var v = 100f.RandomSign(); // 100f or -100f
+```
+
+## Extensions for `MonoBehaviour`
+
+### <a name="monobehaviour-delay-frames"> `.Delay()` - Delay Frames
 
 Delay one frame:
 
 ```C#
 // this is MonoBehaviour
-this.Delay(() => {
+this.Delay(() =>
+{
   Debug.Log("One frame after");
 });
 ```
@@ -197,132 +302,151 @@ this.Delay(() => {
 Delay specified frames:
 
 ```C#
-this.Delay(3, () => {
+this.Delay(3, () =>
+{
   Debug.Log("Three frames after");
 });
 ```
 
-### Delay Seconds
+### <a name="monobehaviour-delay-seconds"> `.Delay()` - Delay Seconds
 
 ```C#
 // this is MonoBehaviour
-this.Delay(3.0f, () => {
+this.Delay(3.0f, () =>
+{
   Debug.Log("Three seconds after");
 });
 ```
 
-## Random Extensions
+## Extensions for `IEnumerable<T>`
 
-### Random Sign
+### <a name="ienumerable-asenumerable"> `.AsEnumerable()` - Object to Enumerable
 
-```C#
-// Get positive or negative value randomly.
-var n = Random.Range(2f, 3f).RandomSign();
-```
-
-## Enumerator Extensions
-
-### Object to Enumerable
+Convert a single object into IEnumerable.
 
 ```C#
-// e is IEnumerable<string>
-var e = "It's empty".AsEnumerable(); // Convert an object to enumerable
-}
+// e is IEnumerable<int>
+var e = 100.AsEnumerable();
 ```
 
-### Combine First
+### <a name="ienumerable-combinefirst"> `.CombineFirst()` - Appending Object to First
+
+Insert a specified element to first.
 
 ```C#
-// Insert specified element to first
-foreach (var l in g1.GetComponents<Light>().CombineFirst(g2.GetComponent<Light>())) {
-  l.enabled = false;
-}
+var list = new int[] { 1, 2, 3 };
+var n = 10;
+list.CombineFirst(n); // 10, 1, 2, 3
 ```
 
-### Combine Last
+### <a name="ienumerable-combinelast"> `.CombineLast()` - Appending Object to Last
+
+Insert a specified element to last.
 
 ```C#
-// Insert specified element to last
-foreach (var l in g1.GetComponents<Light>().CombineLast(g2.GetComponent<Light>())) {
-  l.enabled = false;
-}
+var list = new int[] { 1, 2, 3 };
+var n = 10;
+list.CombineLast(n); // 1, 2, 3, 10
 ```
 
-### Sample
+### <a name="ienumerable-sample"> `.Sample()` - Picking Random Object
 
 ```C#
 // Pick a random element
 var e = list.Sample();
 ```
 
-### Is Empty
+### <a name="ienumerable-shuffle"> `.Shuffle()` - Enumerating in Random Order
 
 ```C#
-// Whether enumerable has any element
+var shuffled = list.Shuffle();
+```
+
+### <a name="ienumerable-isempty"> `.IsEmpty()` - Is Collection Empty
+
+```C#
+// Whether enumerable doesn`t have any element
 var b = list.IsEmpty();
 ```
 
-### Actives / ActiveObjects
-
-Choose objects that is not null (means not destroyed yet)
-
-```C#
-// for UnityEngine.Component
-var actives = components.Actives();
-// for UnityEngine.Object
-var activeObjects = objects.ActiveObjects();
-```
-
-### Each
+### <a name="ienumerable-each"> `.Each()` - Enumerating Elements
 
 Same as `each()` in Ruby.
 
 ```C#
-list.Each((e) => {
+list.Each(e =>
+{
   Debug.Log(e);
 });
 ```
 
-### EachWithIndex
+### <a name="ienumerable-eachwithindex"> `.EachWithIndex()` - Enumerating Elements with Indicies
 
 Same as `each_with_index()` in Ruby.
 
 ```C#
-list.EachWithIndex((e, i) => {
-  Debug.Log(i + " -> " + e);
+list.EachWithIndex((e, i) =>
+{
+  Debug.Log($"{i} -> {e}");
 });
 ```
 
-## List Extensions
+## Extensions for `IEnumerable<T> where T : UnityEngine.Object`
 
-### Shuffle
+### <a name="ienumerable-activeobjects"> `.ActiveObjects()` - Enumerating Not Destroyed Elements
+
+Enumerates objects that is not null (means has not been destroyed yet)
 
 ```C#
-// Make order randomly.
+var activeObjects = objects.ActiveObjects();
+```
+
+## Extensions for `IEnumerable<T> where T : UnityEngine.Component`
+
+### <a name="ienumerable-actives"> `.Actives()` - Enumerating Not Destroyed Elements
+
+Enumerates objects that is not null (means has not been destroyed yet and also related GameObject has not been destroyed)
+
+```C#
+var actives = components.Actives();
+```
+
+## Extensions for `List<T>`
+
+### <a name="list-shuffle"> `.Shuffle()` - Shuffling
+
+```C#
 list.Shuffle();
 ```
 
-## Dictionary Extensions
+## Extensions for `Dictionary<K, V>`
 
-### Query / QueryObject
+### <a name="dictionary-queryobject"> `.QueryObject()` - Nullsafe Querying
 
-Calls a closure with a object that has been stored to dictionary as key if exists and is not null.
+Calls a closure with a object in a dictionary if exists and is not null.
 
 ```C#
-// for UnityEngine.Object
-gameObjects.Query("Foo", g => g.SetActive(true));
-// for other objects / values
-values.QueryObject("Foo", o => Debug.Log(o));
+dictionary.QueryObject("Foo", o => Debug.Log(o));
 ```
 
-## Object Extensions
+## Extensions for `Dictionary<K, V> where V : UnityEngine.Object`
 
-### Tap
+### <a name="dictionary-query"> `.Query()` - Nullsafe Querying
+
+Calls a closure with a object in a dictionary if exists and is not null (means has not been destroyed).
+
+```C#
+gameObjects.Query("Player", g => Debug.Log(g));
+```
+
+## Extensions for `<T>`
+
+### <a name="t-tap"> `.Tap()`
 
 Same as `tap()` in Ruby.
 
 ```C#
-g.GetComponents<Light>().Where((l) => l.intensity > 1f).Tap((o) => Debug.Log(o.ToList().Count)).Select((l) => l.gameObject);
+particle.main.Tap(m => m.startColor = Color.red);
 ```
 
 ## License
