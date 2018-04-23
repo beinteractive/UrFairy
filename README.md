@@ -101,6 +101,8 @@ Extensions for `Dictionary<K, V> where V : UnityEngine.Object`
 Extensions for `<T>`
 
   - [`.Tap()`](#t-tap)
+  - [`.IfJust()`](#t-ifjust)
+  - [`.IfNothing()`](#t-ifnothing)
 
 Other
 
@@ -502,6 +504,29 @@ Same as `tap()` in Ruby.
 
 ```C#
 particle.main.Tap(m => m.startColor = Color.red);
+```
+
+### <a name="t-ifjust"> `.IfJust()`
+
+Calls a closure if object is not null.
+
+```C#
+// Invoke callback if not null
+callback.IfJust(f => f());
+```
+
+In .NET 4.6 script backend, it's recommended to use a null conditional operator.
+
+```C#
+callback?.Invoke();
+```
+
+### <a name="t-ifnothing"> `.IfNothing()`
+
+Calls a closure if object is null.
+
+```C#
+Resources.Load<GameObject>("Prefab").IfNothing(Debug.Log("Prefab is not found"));
 ```
 
 ## License
