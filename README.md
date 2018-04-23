@@ -42,6 +42,17 @@ Extensions for `Color`
   - [`.R()` / `.G()` / `.B()` / `.A()`](#color-rgba) - One Liner Modification
   - [`.HSV()`](#color-hsv) - Manipulating HSV
 
+Extensions for `Material`
+
+  - [`.Color()`](#material-color) - One Liner Modification
+  - [`.Float()`](#material-float) - One Liner Modification
+  - [`.Keyword()`](#material-keyword) - One Liner Modification
+
+Extensions for `Renderer`
+
+  - [`.Material()`](#renderer-material) - One Liner Modification
+  - [`.Materials()`](#renderer-materials) - One Liner Modification
+
 Extensions for `int`
 
   - [`.Color()`](#int-color) - Hex to Color
@@ -257,6 +268,50 @@ HSV to Color:
 
 ```C#
 var col = hsv.Color();
+```
+
+## Extensions for `Material`
+
+### <a name="material-color"> `.Color()` - One Liner Modification
+
+Set a new value with modifying existing value (this method is chainable)
+
+```C#
+m.Color("_Color", c => c.A(0.5f)).Keyword("_ALPHA_BLEND", true);
+```
+
+### <a name="material-float"> `.Float()` - One Liner Modification
+
+Set a new value with modifying existing value (this method is chainable)
+
+```C#
+m.Float("_Alpha", a => a * 0.5f).Keyword("_ALPHA_BLEND", true);
+```
+
+### <a name="material-keyword"> `.Keyword()` - One Liner Modification
+
+Set a new value with modifying existing value (this method is chainable)
+
+```C#
+m.Keyword("_ENABLE_GRAYSCALE", b => !b).Float("_TIME_SCALE", 0.5f);
+```
+
+## Extensions for `Renderer`
+
+### <a name="renderer-material"> `.Material()` - One Liner Modification
+
+Set a new material with modifying existing material.
+
+```C#
+r.Material(m => m.Color("_Color", Color.red));
+```
+
+### <a name="renderer-materials"> `.Materials()` - One Liner Modification
+
+Set a new materials with modifying existing materials.
+
+```C#
+r.Materials(m => m.Keyword("_GRAYSCALE", true));
 ```
 
 ## Extensions for `int`
