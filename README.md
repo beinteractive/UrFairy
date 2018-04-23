@@ -529,6 +529,42 @@ Calls a closure if object is null.
 Resources.Load<GameObject>("Prefab").IfNothing(Debug.Log("Prefab is not found"));
 ```
 
+## Other
+
+### <a name="rnd"> `Rnd`
+
+Implementation of PCG Random Number Generation.
+
+```C#
+// With specified seed
+var r = new Rnd(12345U, 678910U);
+// Auto seed
+var r = new Rnd();
+
+// float
+r.Value;
+// uint
+r.Value32;
+// float range
+r.Range(0.5f, 1.5f);
+// uint range
+r.Range(50, 150);
+```
+
+### <a name="interpolations"> `Interpolations`
+
+Time based interpolation alghrothims from [Klak](https://github.com/keijiro/Klak).
+
+By passing a destination value, a current value, a speed and a delta time, an interpolated new current value will be returned.
+
+```C#
+// Approaching "to" by exponential algorhithm.
+transform.localPosition = Interpolations.Expo(to, transform.localPosition, 30f, Time.deltaTime);
+
+// Approaching "to" by critically damped spring smoothing.
+transform.localPosition = Interpolations.CriticallyDamped(to, transform.localPosition, 30f, Time.deltaTime);
+```
+
 ## License
 
 Copyright 2016 Oink Games, Inc. and other contributors.
