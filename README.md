@@ -35,7 +35,7 @@ Extensions for `Transform`
   - [`.EulerAngles()`](#transform-eulerangles) - One Liner Modification
   - [`.Identity()`](#transform-identity) - Reset Transform
   - [`.Children()`](#transform-children) - Traversing Hierarchy
-  - [`.FindDesendant`](#transform-finddesendant) - Finding Desendant
+  - [`.FindDesendant()`](#transform-finddesendant) - Finding Desendant
 
 Extensions for `Color`
 
@@ -108,6 +108,11 @@ Other
 
  - [`Rnd`](#rnd) - PCG Random Number Generator
  - [`Interpolations`](#interpolations) - Time Based Interpolation Alghorithms
+
+Editor Extensions
+
+ - [`Spacebar Hand Tool`](#spacebar-hand-tool)
+ - [`Capture Screenshot`](#capture-screenshot)
 
 ## Extensions for `Vector3`
 
@@ -564,6 +569,16 @@ transform.localPosition = Interpolations.Expo(to, transform.localPosition, 30f, 
 // Approaching "to" by critically damped spring smoothing.
 transform.localPosition = Interpolations.CriticallyDamped(to, transform.localPosition, 30f, Time.deltaTime);
 ```
+
+## Editor Extensions
+
+### <a name="spacebar-hand-tool"> `Spacebar Hand Tool`
+
+Toggle hand tool while pressing a space key in the scene view like Photoshop.
+
+### <a name="capture-screenshot"> `Capture Screenshot`
+
+Capture the game view and save png image to project directory by editor menu `UrFairy | Capture Screenshot`.
 
 ## License
 
