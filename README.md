@@ -4,19 +4,9 @@ UrFairy (Your fairy) is a set of useful extensions for development in Unity.
 
 ## Installation
 
-### <= 2017.x
+Add following url on Unity Package Manager
 
-Copy `Assets/UrFairy` directoy to your `Assets` directory.
-
-### >= 2018.x
-
-Clone this repository into your project's `Packages` directory and checkout `upm` branch.
-
-```bash
-$ git submodule add git@github.com:beinteractive/UrFairy.git Packages/UrFairy
-$ cd Packages/UrFairy
-$ git checkout upm
-```
+ - `https://git@github.com/beinteractive/UrFairy.git?path=Assets/UrFairy`
 
 ## List of extensions
 
